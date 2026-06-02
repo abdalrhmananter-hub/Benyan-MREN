@@ -5,19 +5,18 @@ const express= require('express');
 const mongoose = require('mongoose')
 
 const app = express();
+const morgan  = require('morgan');
 //middlware jason
 app.use(express.json());
 //database
 const connectedDB = require("./config/db");
 
 connectedDB();
-
+const adminRoute = require("./routes/auth.route");
+app.use("/api/dashboard",adminRoute);
 //simple logger
 if(process.env.NODE_ENV === "dev"){
-    app.use((req,res,next)=>{
-        console.log(`${req.method} ${req.originalUrl}`)
-        next();
-    })
+    app.use(morgan("dev"));
 }
 
 app.get("/test",(req,res)=>{

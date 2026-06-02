@@ -16,6 +16,7 @@ const adminSchema = new mongoose.Schema({
         type: String,
         required:[true,"password is required"],
         minlength: 6,
+        select:false, // To force not showing the password when trying to find it
     },
 },{timestamps: true});
 
